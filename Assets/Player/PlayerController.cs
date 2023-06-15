@@ -6,14 +6,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Vector3 dir =Vector3.zero; //移動方向を保存する変数
-
+    GameObject ShotPre;//弾のプレハブを保存する
     Animator anim;  //アニメーターとアニメーションを間違えないように   
+    float ShotTimer;//弾の発射間隔制御用
+    int power = 0;  //弾のレベル
+    
+    
 
     void Start()
     {
         //アニメーターコンポーネントの情報を保存
         anim= GetComponent<Animator>();  //ゲットコンポーネントはスタートメソッドで一回だけ取得すればよいのでStratに入れるとよい
-
+        //弾のプレハブを変数に保存する
+        ShotPre = (GameObject)Resources.Load("Shot");
 
     }
 
@@ -48,6 +53,29 @@ public class PlayerController : MonoBehaviour
         {
             anim.Play("PlayerR");
         }
+        //Cキーで弾のレベルアップ
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            power = (power + 1) % 13;
+        }
+        //Zキーで球発射
+        ShotTimer += Time.deltaTime;
+        if (Input.GetKey(KeyCode.Z) && ShotTimer > 0.3f)
+        {
+            for (int i = -power; i < power + 1; i++)
+            {
+                //プレイヤーの現在地をposに保存
+                pos = transform.position;
+                //プレイヤーの回転角度を取得
+                Vector3 r = transform.rotation.eulerAngles + new Vector3(0, 15f * i, 0);
+                Quaternion rot = Quaternion.Euler(r);
 
+                //弾を生成する際に、プレイヤーの位置と角度をリセット
+                Instantiate(ShotPre,pos,rot);
+            }
+            ShotTimer = 0;
+        }
     }
+
+    
 }

@@ -32,7 +32,7 @@ public class GameDirector : MonoBehaviour
         //c‚èŠÔ‚ª0‚É‚È‚Á‚½‚çƒŠƒ[ƒh
         if(lastTime <0)
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("TorSene");
         }
         
 

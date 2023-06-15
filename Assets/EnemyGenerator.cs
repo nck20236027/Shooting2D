@@ -23,18 +23,20 @@ public class EnemyGenerator : MonoBehaviour
 
         if (delta>span)
         {
-            //“G‚ð¶¬‚·‚é
-            GameObject go= Instantiate(enemyPre);
-            float py = Random.Range(-6f, 7f);
-            go.transform.position = new Vector3(10, py, 0);
+             
+            
+                GameObject go = Instantiate (enemyPre);
+                float py = Random.Range(-6f, 7f);
+                go.transform.position = new Vector3(10, py, 0);
 
-            //ŽžŠÔŒo‰ß‚ð•Û‘¶‚µ‚Ä‚¢‚é•Ï”‚ð‚O‚ÉƒNƒŠƒA‚·‚é
-            delta = 0;
+                //ŽžŠÔŒo‰ß‚ð•Û‘¶‚µ‚Ä‚¢‚é•Ï”‚ð‚O‚ÉƒNƒŠƒA‚·‚é
+                delta = 0;
+
+            
             //“G‚ðo‚·ŠÔŠu‚ð™X‚É’Z‚­‚·‚é
             span -= (span >= 0.5f) ? 0.01f : 0f;
 
-            
-
         }
     }
+    
 }

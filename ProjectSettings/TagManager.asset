@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Shot
   - Enemy
+  - Red
+  - Bul
+  - Ger
   layers:
   - Default
   - TransparentFX

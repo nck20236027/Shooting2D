@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public GameObject tama;    //弾呼び出し　敵の
     float seisei = 2f;            //生成時間１秒」
     float delta;              //それ消すやつ
+    int random = 0;
     void Start()
        
     {
@@ -19,7 +20,8 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject,5f);
         //プレイヤーの方向に移動　
         //player = GameObject.Find("player").transform;
-        
+        random = Random.Range(0, 10);
+
 
     }
 
@@ -37,7 +39,10 @@ public class EnemyController : MonoBehaviour
         }
         //Y方向の移動
         //-1 <= Mathf.Sin(Time.time*5f) <=1
-        dir.y = Mathf.Sin(Time.time * 5f);
+        if (random <= 3)
+        {
+            dir.y = Mathf.Sin(Time.time * 5f);
+        }
         //プレイヤーの方向に移動させる
         //dir=player.position -transform.position;
 

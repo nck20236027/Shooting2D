@@ -2,32 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotContlloer : MonoBehaviour
+public class RedContoller : MonoBehaviour
 {
-    float speed = 7f;//íeÇÃî≠éÀÉXÉsÅ[Éh
-    
-
-
+    Vector3 dir = Vector3.zero;
+    float speed = 5;
     // Start is called before the first frame update
     void Start()
     {
-        
-        Destroy(gameObject, 4f);
-
+        //ÇTïbå„Ç´Ç¶ÇÈ
+        Destroy(gameObject, 5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
-       
+        dir = Vector3.down;
+        transform.position += dir * speed * Time.deltaTime;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            GameDirector.kyori += 200;
+            
         }
     }
 }

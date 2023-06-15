@@ -6,26 +6,26 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Vector3 dir =Vector3.zero; //移動方向を保存する変数
-    GameObject ShotPre;//弾のプレハブを保存する
+    GameObject Shot;//弾のプレハブを保存する
     Animator anim;  //アニメーターとアニメーションを間違えないように   
     float ShotTimer;//弾の発射間隔制御用
     int power = 0;  //弾のレベル
-    
-    
+    float speed = 5;//プレイヤーの速度
+
 
     void Start()
     {
         //アニメーターコンポーネントの情報を保存
         anim= GetComponent<Animator>();  //ゲットコンポーネントはスタートメソッドで一回だけ取得すればよいのでStratに入れるとよい
         //弾のプレハブを変数に保存する
-        ShotPre = (GameObject)Resources.Load("Shot");
+        Shot = (GameObject)Resources.Load("Shot");
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        float speed = 5;
+        
         
         //移動方向をセット
         dir.x = Input.GetAxisRaw("Horizontal");
@@ -67,15 +67,34 @@ public class PlayerController : MonoBehaviour
                 //プレイヤーの現在地をposに保存
                 pos = transform.position;
                 //プレイヤーの回転角度を取得
-                Vector3 r = transform.rotation.eulerAngles + new Vector3(0, 15f * i, 0);
+                Vector3 r = transform.root.eulerAngles + new Vector3(0,0 , 15f * i);
                 Quaternion rot = Quaternion.Euler(r);
 
                 //弾を生成する際に、プレイヤーの位置と角度をリセット
-                Instantiate(ShotPre,pos,rot);
+                Instantiate(Shot,pos,rot);
             }
             ShotTimer = 0;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Red")
+        {
+            
+            power = (power + 1) % 13;
+        }
+        if (collision.gameObject.tag =="Ger")
+        {
+            speed = (speed + 3);
+            
+        }
+        if (collision.gameObject.tag=="Bul")
+        {
+            power = 0;
+            speed = 5;
+        }
+    }
+  
 
-    
+
 }

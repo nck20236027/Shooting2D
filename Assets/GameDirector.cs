@@ -8,14 +8,16 @@ public class GameDirector : MonoBehaviour
 {
     public Text kyoriLabel;//距離を表示するUI‐Textオブジェクト
     public static int kyori;           //距離を保存する変数
+    
 
-     float lastTime;    //残り時間を保存する変数  public static
+    float lastTime;    //残り時間を保存する変数  public static
     public Image timeGauge; //タイムゲージを表示するUI
     
     void Start()
     {
         kyori = 0;
         lastTime = 100f; //残り時間100秒
+       
     }
 
     void Update()

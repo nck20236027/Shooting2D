@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     GameObject Shot;//弾のプレハブを保存する
     Animator anim;  //アニメーターとアニメーションを間違えないように   
     float ShotTimer;//弾の発射間隔制御用
-    int power = 0;  //弾のレベル
+    public static int power = 0;  //弾のレベル
     float speed = 5;//プレイヤーの速度
 
 
@@ -94,7 +94,4 @@ public class PlayerController : MonoBehaviour
             speed = 5;
         }
     }
-  
-
-
 }

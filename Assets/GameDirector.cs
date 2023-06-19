@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameDirector : MonoBehaviour
 {
     public Text kyoriLabel;//距離を表示するUI‐Textオブジェクト
+    public Text ShotLevel;//弾の強さを表示するUI
     public static int kyori;           //距離を保存する変数
     
 
@@ -25,7 +26,7 @@ public class GameDirector : MonoBehaviour
         //進んだ距離を表示
         if (kyori < 0) kyori = 0;
         kyori++;
-        kyoriLabel.text = kyori.ToString("D6") + "km";
+        kyoriLabel.text = kyori.ToString("D6") + ":Score";
         
 
         //残り時間を減らす処理
@@ -36,7 +37,7 @@ public class GameDirector : MonoBehaviour
         {
             SceneManager.LoadScene("TorSene");
         }
-        
+        ShotLevel.text = "Level:"+PlayerController.power. ToString("D2");
 
     }
 }

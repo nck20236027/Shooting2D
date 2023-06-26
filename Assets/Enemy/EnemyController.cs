@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     float seisei = 2f;            //生成時間１秒」
     float delta;              //それ消すやつ
     int random = 0;
+    int EnemyHp = 2;
+    int BOSSEnemyHP = 10;
     void Start()
        
     {
@@ -20,7 +22,7 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject,5f);
         //プレイヤーの方向に移動　
         //player = GameObject.Find("player").transform;
-        random = Random.Range(0, 10);
+        random = Random.Range(0, 100);
 
 
     }
@@ -29,17 +31,16 @@ public class EnemyController : MonoBehaviour
     {
         //移動方向を決定
         dir = Vector3.left;
-
-        //左に見切れたら右から登場
-        if(transform.position.x<-9f)
-        {
-            Vector3 pos = transform.position;
-            pos.x = 9f;
-            transform.position = pos;
-        }
         //Y方向の移動
         //-1 <= Mathf.Sin(Time.time*5f) <=1
-        if (random <= 3)
+        //if(random <=1)
+        //{
+        //    トランスフォームScore　大きさを変更
+        //    
+        //    if(死んだら)
+        //       {kyori+=3000}
+        //}
+        if (random <= 30)
         {
             dir.y = Mathf.Sin(Time.time * 5f);
         }
@@ -57,7 +58,6 @@ public class EnemyController : MonoBehaviour
             go.transform.position=transform.position;  
             
         }
-
     }
     
     public void OnTriggerEnter2D(Collider2D collision)
@@ -68,18 +68,24 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
            
+            GameDirector.kyori -= 1000;
             
             //消去時にエフェクトを出す
             Instantiate(expol, transform.position, Quaternion.identity);
-            GameDirector.kyori -= 1000;
 
         }
         if (collision.gameObject.tag == "Shot")
         {
-            Destroy(gameObject);
-            //消去時にエフェクトを出す
-            Instantiate(expol, transform.position, Quaternion.identity);
-
+            EnemyHp--;
+            if(EnemyHp < 0) { 
+                EnemyHp = 2;
+                GameDirector.kyori += 200;
+                
+                //消去時にエフェクトを出す
+                Instantiate(expol, transform.position, Quaternion.identity);
+                
+                Destroy(gameObject);
+            }
         }
     }
    

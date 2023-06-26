@@ -30,8 +30,9 @@ public class GameDirector : MonoBehaviour
         
 
         //残り時間を減らす処理
-        lastTime -= Time.deltaTime;
-        timeGauge.fillAmount = lastTime / 100f;
+        //lastTime -= Time.deltaTime;
+        //timeGauge.fillAmount = lastTime / 100f;
+
         //残り時間が0になったらリロード
         if(lastTime <0)
         {

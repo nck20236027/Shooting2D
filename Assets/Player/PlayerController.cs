@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;  //アニメーターとアニメーションを間違えないように   
     float ShotTimer;//弾の発射間隔制御用
     public static int power = 0;  //弾のレベル
-    float speed = 5;//プレイヤーの速度
+    float speed = 6;//プレイヤーの速度
 
 
     void Start()
@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
         //移動方向をセット
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");

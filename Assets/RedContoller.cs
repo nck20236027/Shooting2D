@@ -5,7 +5,7 @@ using UnityEngine;
 public class RedContoller : MonoBehaviour
 {
     Vector3 dir = Vector3.zero;
-    float speed = 5;
+    float speed = 4;
     // Start is called before the first frame update
     void Start()
     {

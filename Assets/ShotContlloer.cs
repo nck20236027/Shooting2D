@@ -11,9 +11,7 @@ public class ShotContlloer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        Destroy(gameObject, 4f);
-
+      
     }
 
     // Update is called once per frame
@@ -21,13 +19,15 @@ public class ShotContlloer : MonoBehaviour
     {
         transform.position += transform.up * speed * Time.deltaTime;
        
+        if(transform.position.x >9f)
+        { Destroy(gameObject); }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
-            GameDirector.kyori += 200;
+
         }
     }
 }

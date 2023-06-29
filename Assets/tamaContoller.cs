@@ -6,12 +6,13 @@ public class tamaContoller : MonoBehaviour
 {
     Vector3 dir = Vector3.zero;
     GameObject player;
-    float speed = 2;
+    float speed =1;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         dir = player.transform.position - transform.position;
+        Destroy(gameObject, 6f);
     }
 
     // Update is called once per frame
@@ -24,6 +25,7 @@ public class tamaContoller : MonoBehaviour
         GameObject obj = collision.gameObject;
         if(obj.tag == "Player")
         {
+            GameDirector.hp -= 10f;
             GameDirector.kyori -= 500;
             Destroy(gameObject);
         }

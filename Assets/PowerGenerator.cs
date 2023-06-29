@@ -34,7 +34,7 @@ public class PowerGenerator : MonoBehaviour
             {
                 //¶¬‚·‚é
                 GameObject go = Instantiate(Red);
-                float py = Random.Range(-8f, 8f);
+                float py = Random.Range(-7f, 4f);
                 go.transform.position = new Vector3(py,7 , 0);
 
                 //ŠÔŒo‰ß‚ğ•Û‘¶‚µ‚Ä‚¢‚é•Ï”‚ğ‚O‚ÉƒNƒŠƒA‚·‚é

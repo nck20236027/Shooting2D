@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -10,46 +9,37 @@ public class EnemyController : MonoBehaviour
     Transform player;　　　　　//プレイヤーがどこにいるかの位置情報の保存
     public EzplosionContlloer expol;
     public GameObject tama;    //弾呼び出し　敵の
-    float seisei = 2f;            //生成時間１秒」
+    float seisei = 3f;            //生成時間3秒」
     float delta;              //それ消すやつ
     int random = 0;
     int EnemyHp = 2;
-    int BOSSEnemyHP = 10;
+    AudioClip seClip;          //オーディオクリップ保存
+    Vector3 sePos;             //効果音を鳴らす位置
+
     void Start()
-       
     {
         //寿命4秒
         Destroy(gameObject,5f);
-        //プレイヤーの方向に移動　
-        //player = GameObject.Find("player").transform;
+        //敵の行動ランダム化
         random = Random.Range(0, 100);
-
-
+        //メインカメラの位置を保存
+        sePos= GameObject.Find("Main Camera").transform.position;
+        seClip = Resources.Load<AudioClip>("Audio/SE/bomb");
     }
 
     void Update()
     {
         //移動方向を決定
         dir = Vector3.left;
-        //Y方向の移動
-        //-1 <= Mathf.Sin(Time.time*5f) <=1
-        //if(random <=1)
-        //{
-        //    トランスフォームScore　大きさを変更
-        //    
-        //    if(死んだら)
-        //       {kyori+=3000}
-        //}
         if (random <= 30)
         {
             dir.y = Mathf.Sin(Time.time * 5f);
         }
-        //プレイヤーの方向に移動させる
-        //dir=player.position -transform.position;
 
         //現在地に移動量を加算
         transform.position += dir.normalized * speed * Time.deltaTime;
 
+        //弾を打つ
         delta += Time.deltaTime;
         if(delta > seisei)
         {
@@ -68,8 +58,8 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
            
+            GameDirector.hp -= 10f;
             GameDirector.kyori -= 1000;
-            
             //消去時にエフェクトを出す
             Instantiate(expol, transform.position, Quaternion.identity);
 
@@ -80,7 +70,8 @@ public class EnemyController : MonoBehaviour
             if(EnemyHp < 0) { 
                 EnemyHp = 2;
                 GameDirector.kyori += 200;
-                
+
+                AudioSource.PlayClipAtPoint(seClip, sePos);
                 //消去時にエフェクトを出す
                 Instantiate(expol, transform.position, Quaternion.identity);
                 

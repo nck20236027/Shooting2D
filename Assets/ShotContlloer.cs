@@ -19,7 +19,8 @@ public class ShotContlloer : MonoBehaviour
     {
         transform.position += transform.up * speed * Time.deltaTime;
        
-        if(transform.position.x >9f)
+        if(transform.position.x >9f||transform.position.y>5||
+            transform.position.y<-5||transform.position.x<-9)
         { Destroy(gameObject); }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,6 +29,10 @@ public class ShotContlloer : MonoBehaviour
         {
             Destroy(gameObject);
 
+        }
+        if (collision.gameObject.tag =="Boss")
+        {
+            Destroy(gameObject);
         }
     }
 }

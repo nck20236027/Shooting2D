@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     float ShotTimer;//弾の発射間隔制御用
     public static int power = 0;  //弾のレベル
     float speed = 6;//プレイヤーの速度
+    AudioSource audioSource;   //オーディオソースコンポーネントの情報を取得
+    AudioClip seClip;          //オーディオクリップ保存
+    Vector3 sePos;             //効果音を鳴らす位置
 
 
     void Start()
@@ -19,6 +22,9 @@ public class PlayerController : MonoBehaviour
         anim= GetComponent<Animator>();  //ゲットコンポーネントはスタートメソッドで一回だけ取得すればよいのでStratに入れるとよい
         //弾のプレハブを変数に保存する
         Shot = (GameObject)Resources.Load("Shot");
+        //メインカメラの位置を保存
+        sePos = GameObject.Find("Main Camera").transform.position;
+        seClip = Resources.Load<AudioClip>("Audio/SE/damage1");
 
     }
 
@@ -58,8 +64,9 @@ public class PlayerController : MonoBehaviour
         }
         //Zキーで球発射
         ShotTimer += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Z) && ShotTimer > 0.3f)
+        if (Input.GetKey(KeyCode.Space) && ShotTimer > 0.3f)
         {
+            AudioSource.PlayClipAtPoint(seClip, sePos);
             for (int i = -power; i < power + 1; i++)
             {
                 //プレイヤーの現在地をposに保存
@@ -82,14 +89,13 @@ public class PlayerController : MonoBehaviour
             power = (power + 1) % 13;
         }
         if (collision.gameObject.tag =="Ger")
-        {
-            speed = (speed + 3);
-            
+        { 
+            GameDirector.hp += 30;
+
         }
         if (collision.gameObject.tag=="Bul")
         {
-            power = 0;
-            speed = 5;
+            speed = (speed + 3);
         }
     }
 }
